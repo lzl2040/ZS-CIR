@@ -15,7 +15,7 @@ BIT=4
 R=64
 ALPHA=16
 BATCH_SIZE=768
-MICRO_BATCH_SIZE=32 # 尽量调大，直到显存占满
+MICRO_BATCH_SIZE=180 # 尽量调大，直到显存占满
 EPOCH=2
 LR=4e-4
 
@@ -25,7 +25,7 @@ echo $TEMPLATE
 
 echo $MICRO_BATCH_SIZE $BATCH_SIZE
 
-GPUS=8 # 8
+GPUS=4 # 8
 NUM_NODES=1 # 4
 
 # wandb online
