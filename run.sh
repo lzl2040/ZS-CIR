@@ -26,7 +26,7 @@ echo $TEMPLATE
 echo $MICRO_BATCH_SIZE $BATCH_SIZE
 
 GPUS=8 # 8
-NUM_NODES=1 # 4
+NUM_NODES=8 # 4
 
 # wandb online
 

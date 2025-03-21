@@ -381,6 +381,7 @@ def train(
         torch.distributed.init_process_group("nccl")
         rank, world_size = torch.distributed.get_rank(), torch.distributed.get_world_size()
         device_id = rank % torch.cuda.device_count()
+        print(f"current device:{device_id}")
         device = torch.device(device_id)
         torch.cuda.set_device(device)
 
