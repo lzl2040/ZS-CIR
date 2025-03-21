@@ -1,8 +1,8 @@
-RUN=/mnt/output/ZS-CIR/e5v-8b-4bit-ke
+RUN=/mnt/output_zuo/ZS-CIR/e5v-8b-4bit-ke
 
 args=()
 
-BASE_MODEL="/mnt/input/ZS-CIR/models/llava-llama-3-8b"
+BASE_MODEL="/mnt/input_zuo/ZS-CIR/models/llava-llama-3-8b"
 # original
 #TEMPLATE='*sent_0*\nSummary_above_sentence_in_one_word:'
 # cot

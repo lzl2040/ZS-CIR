@@ -17,11 +17,11 @@ storage: # mount the storage container
   my_input:
     storage_account_name: azsussc
     container_name: v-zuoleili
-    mount_dir: /mnt/input
+    mount_dir: /mnt/input_zuo
   my_output:
     storage_account_name: azsussc
     container_name: v-zuoleili
-    mount_dir: /mnt/output
+    mount_dir: /mnt/output_zuo
     is_output: false
 
 environment: # select the image, clone your code, install the packages

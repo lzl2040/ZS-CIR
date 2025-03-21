@@ -579,8 +579,8 @@ def main(
                 if fiq_data_type == 'toptee':
                     fiq_data_name = 'shirt'
                 # Original prompt (Summarize word)
-                # img_prompt = f"[INST] <image>\n Describe this {fiq_data_name} in one word based on its style: [/INST]"
-                # text_img_prompt = f"[INST] <image> change the style of this {fiq_data_name} to <sent>\n Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
+                img_prompt = f"[INST] <image>\n Describe this {fiq_data_name} in one word based on its style: [/INST]"
+                text_img_prompt = f"[INST] <image> change the style of this {fiq_data_name} to <sent>\n Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
 
                 # Pretended CoT prompt (word)
                 # img_prompt = f"[INST] <image>\n After thinking step by step, describe this {fiq_data_name} in one word based on its style: [/INST]"
@@ -588,24 +588,24 @@ def main(
                 #                   f" Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
 
                 # Knowledge Enhancement Prompt
-                img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
-                             f"With this in mind, describe this {fiq_data_name} in one word based on its style: [/INST]"
-                text_img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
-                                  f"With this in mind, change the style of this {fiq_data_name} to \"<sent>\", and describe this modified {fiq_data_name} in one word based on its style: [/INST]"
+                # img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
+                #              f"With this in mind, describe this {fiq_data_name} in one word based on its style: [/INST]"
+                # text_img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
+                #                   f"With this in mind, change the style of this {fiq_data_name} to \"<sent>\", and describe this modified {fiq_data_name} in one word based on its style: [/INST]"
             else:
                 # Original prompt (Summarize word)
-                # img_prompt = "[INST] <image>\n Describe this image in one word: [/INST]"
-                # text_img_prompt = "[INST] <image>Modify this image with \"<sent>\", describe modified image in one word: [/INST]"
+                img_prompt = "[INST] <image>\n Describe this image in one word: [/INST]"
+                text_img_prompt = "[INST] <image>Modify this image with \"<sent>\", describe modified image in one word: [/INST]"
 
                 # Pretended CoT
                 # img_prompt = "[INST] <image>\n After thinking step by step, describe this image in one word: [/INST]"
                 # text_img_prompt = "[INST] <image>\n After thinking step by step, modify this image with \"<sent>\", describe the modified image in one word: [/INST]"
 
                 # Knowledge Enhancement Prompt
-                img_prompt = "[INST] <image>\n The essence of image is often captured by its main objects and actions, while additional details provide context. " \
-                             "With this in mind, describe this image in one word: [/INST]"
-                text_img_prompt = "[INST] <image>\n The essence of this image is often captured by its main objects and actions, while additional details provide context. " \
-                                  "With this in mind, modify this image with \"<sent>\", and describe the modified image in one word: [/INST]"
+                # img_prompt = "[INST] <image>\n The essence of image is often captured by its main objects and actions, while additional details provide context. " \
+                #              "With this in mind, describe this image in one word: [/INST]"
+                # text_img_prompt = "[INST] <image>\n The essence of this image is often captured by its main objects and actions, while additional details provide context. " \
+                #                   "With this in mind, modify this image with \"<sent>\", and describe the modified image in one word: [/INST]"
 
             if llava_llama3:
                 img_prompt = img_prompt.replace('[INST] ', '').replace(' [/INST]', '')
