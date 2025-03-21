@@ -1,7 +1,7 @@
 description: This is an example configuration file for submitting jobs to Singularity
 # HF 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
 env_defaults:
-  NODES: 2 # The number of nodes you want to use
+  NODES: 1 # The number of nodes you want to use
   GPUS: 8 # number of gpus per node
   MEM: 40 # gpu memory of each gpu, not important
 
