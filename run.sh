@@ -1,21 +1,21 @@
-RUN=e5v-8b-4bit-cot
+RUN=/mnt/output/ZS-CIR/e5v-8b-4bit-ke
 
 args=()
 
-BASE_MODEL="models/llava-llama-3-8b"
+BASE_MODEL="/mnt/input/ZS-CIR/models/llava-llama-3-8b"
 # original
 #TEMPLATE='*sent_0*\nSummary_above_sentence_in_one_word:'
 # cot
-TEMPLATE='After_thinking_step_by_step_this_sentence_*sent_0*\nSummary_above_sentence_in_one_word:'
+# TEMPLATE='After_thinking_step_by_step_this_sentence_*sent_0*\nSummary_above_sentence_in_one_word:'
 # ke
-#TEMPLATE="The_essence_of_a_sentence_is_often_captured_by_its_main_subjects_and_actions_while_descriptive_terms_provide_additional_but_less_central_details_With_this_in_mind_this_sentence_*sent_0*\nSummary_above_sentence_in_one_word:"
+TEMPLATE="The_essence_of_a_sentence_is_often_captured_by_its_main_subjects_and_actions_while_descriptive_terms_provide_additional_but_less_central_details_With_this_in_mind_this_sentence_*sent_0*\nSummary_above_sentence_in_one_word:"
 
 BIT=4
 
 R=64
 ALPHA=16
 BATCH_SIZE=768
-MICRO_BATCH_SIZE=180 # 尽量调大，直到显存占满
+MICRO_BATCH_SIZE=48 # 尽量调大，直到显存占满
 EPOCH=2
 LR=4e-4
 
@@ -25,7 +25,7 @@ echo $TEMPLATE
 
 echo $MICRO_BATCH_SIZE $BATCH_SIZE
 
-GPUS=1 # 8
+GPUS=8 # 8
 NUM_NODES=1 # 4
 
 # wandb online
