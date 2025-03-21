@@ -1,0 +1,35 @@
+### Training
+1. Install Dependencies
+pip install -r requirements.txt
+
+2. Download Data
+cd ./data
+bash download_nli.sh
+cd -
+
+3. Transfer llava-llama-3-8b model to huggingface format on each nodes
+mkdir -p models
+cd models
+for i in 1 2 3 4; do
+    wget https://huggingface.co/lmms-lab/llama3-llava-next-8b/resolve/main/model-0000$i-of-00004.safetensors
+done
+cd -
+python load_llama3_hf.py
+rm models/*.safetensors
+
+4. Train
+bash run.sh
+# 主要调整 micro_batch_size 参数至占满 GPU 显存
+# 三种 template 分别为 original， CoT，knowledge enhanced (KE))
+# 实验优先级：KE, original, CoT
+
+
+### Test on FashionIQ, CIRR 数据集
+# lora_path 为 Qlora 模块，大概在 checkpoint-400 处取得最大值
+# file_path 为 metrics 文档存储地址，记录实验结果
+# retrieval 分别有三种 prompt，Original、Pretended CoT、Knowledge Enhanced Prompt 分别测试 3 次
+CUDA_VISIBLE_DEVICES=0 accelerate launch --num_machines=1 --num_processes 1 --machine_rank 0 retrieval.py \
+                                         --llava_llama3 \
+                                         --lora_path '/home/v-zuoleili/Project/ZS-CIR/e5v-8b-4bit-cot/checkpoint-400' \
+                                         --file-path '/home/v-zuoleili/Project/ZS-CIR/results'
+

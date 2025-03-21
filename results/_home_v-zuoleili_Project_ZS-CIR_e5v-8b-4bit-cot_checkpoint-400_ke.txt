@@ -1,0 +1,4 @@
+fashioniq dress: R@10: 0.2152 R@50: 0.4467
+fashioniq shirt: R@10: 0.3292 R@50: 0.5221
+fashioniq toptee: R@10: 0.3116 R@50: 0.5329
+cirr:  R@1: 0.3793 R@5: 0.6970 R@10: 0.7953 R@50: 0.9407
