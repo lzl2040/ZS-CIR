@@ -26,12 +26,12 @@ echo $TEMPLATE
 echo $MICRO_BATCH_SIZE $BATCH_SIZE
 
 GPUS=8 # 8
-NUM_NODES=8 # 4
+NUM_NODES=1 # 4
 
 # wandb online
 
 
-NCCL_DEBUG=ERROR deepspeed --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
+NCCL_DEBUG=ERROR deepspeed --master_port 1234 --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
         --base_model   $BASE_MODEL \
         --data_path 'data/nli_for_simcse.csv' \
         --batch_size $BATCH_SIZE \
