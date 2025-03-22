@@ -31,7 +31,7 @@ NUM_NODES=1 # 4
 # wandb online
 
 
-NCCL_DEBUG=ERROR deepspeed --master_port 1234 --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
+NCCL_DEBUG=ERROR deepspeed --master_port 3446 --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
         --base_model   $BASE_MODEL \
         --data_path 'data/nli_for_simcse.csv' \
         --batch_size $BATCH_SIZE \
