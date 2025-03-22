@@ -373,6 +373,8 @@ def train(
     world_size = int(os.environ.get("WORLD_SIZE", 1))
     ddp = world_size != 1
     #if ddp and False:
+    print("nccl_available:")
+    print(torch.distributed.is_nccl_available())
     if ddp:
         device_map = {"": int(os.environ.get("LOCAL_RANK") or 0)}
         gradient_accumulation_steps = gradient_accumulation_steps // world_size

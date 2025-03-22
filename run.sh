@@ -15,7 +15,7 @@ BIT=4
 R=64
 ALPHA=16
 BATCH_SIZE=768
-MICRO_BATCH_SIZE=180 # 尽量调大，直到显存占满
+MICRO_BATCH_SIZE=120 # 尽量调大，直到显存占满
 EPOCH=2
 LR=4e-4
 
@@ -31,7 +31,7 @@ NUM_NODES=1 # 4
 # wandb online
 
 
-NCCL_DEBUG=ERROR deepspeed --master_port 29500 --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
+NCCL_DEBUG=INFO deepspeed --master_port 29500 --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
         --base_model   $BASE_MODEL \
         --data_path 'data/nli_for_simcse.csv' \
         --batch_size $BATCH_SIZE \
