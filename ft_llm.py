@@ -15,6 +15,8 @@ from transformers import set_seed
 from transformers import LlamaTokenizer, LlamaConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig, AutoModelForSequenceClassification
 from transformers import BitsAndBytesConfig
+import wandb
+wandb.init(mode="disabled")
 
 from peft import (
     prepare_model_for_kbit_training,

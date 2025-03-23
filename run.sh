@@ -29,7 +29,7 @@ GPUS=1 # 8
 NUM_NODES=1 # 4
 
 # wandb online
-
+export WANDB_DISABLED=true
 
 NCCL_DEBUG=INFO deepspeed --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
         --base_model   $BASE_MODEL \
