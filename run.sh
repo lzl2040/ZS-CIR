@@ -25,7 +25,7 @@ echo $TEMPLATE
 
 echo $MICRO_BATCH_SIZE $BATCH_SIZE
 
-GPUS=4 # 8
+GPUS=1 # 8
 NUM_NODES=1 # 4
 
 # wandb online
