@@ -396,19 +396,19 @@ def train(
         dtype = torch.bfloat16
 
     if 'Phi-3' not in base_model: # 检查 Phi-3 模型是否在 base_model 中
-        from accelerate import Accelerator # 该库用于加速训练和推理，可以帮助更高效地管理多设备训练任务
-        accelerator = Accelerator() # 创建 Accelerator 实例
-        #device = accelerator.device
-        with accelerator.main_process_first(): # 确保在分布式环境中，只有主进程会执行该部分代码
-            base_llm_model = base_model.split('/')[-1] + '-llm'
-            base_llm_model = os.path.join('/mnt/input_zuo/ZS-CIR/models', base_llm_model)
-            base_llm_model = base_llm_model.strip('-') # 去除末尾多余的 - 字符，strip('-') 只会删除字符串开头和结尾的指定字符
-            if not os.path.exists(base_llm_model):
-                from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
-                LlavaNextForConditionalGeneration.from_pretrained(
-                    base_model,
-                    device_map='cpu',
-                ).language_model.save_pretrained(base_llm_model)
+        # from accelerate import Accelerator # 该库用于加速训练和推理，可以帮助更高效地管理多设备训练任务
+        # accelerator = Accelerator() # 创建 Accelerator 实例
+        # #device = accelerator.device
+        # with accelerator.main_process_first(): # 确保在分布式环境中，只有主进程会执行该部分代码
+        base_llm_model = base_model.split('/')[-1] + '-llm'
+        base_llm_model = os.path.join('/mnt/input_zuo/ZS-CIR/models', base_llm_model)
+        base_llm_model = base_llm_model.strip('-') # 去除末尾多余的 - 字符，strip('-') 只会删除字符串开头和结尾的指定字符
+        if not os.path.exists(base_llm_model):
+            from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
+            LlavaNextForConditionalGeneration.from_pretrained(
+                base_model,
+                device_map='cpu',
+            ).language_model.save_pretrained(base_llm_model)
 
         if load_kbit == 4: # 加载 4 位量化的模型
             assert load_kbit == 4
