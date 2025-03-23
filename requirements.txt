@@ -12,3 +12,4 @@ pillow
 pandas
 fire
 wandb
+pydantic==2.10.6
