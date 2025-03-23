@@ -380,12 +380,12 @@ def train(
         gradient_accumulation_steps = gradient_accumulation_steps // world_size
 
         # 分布式训练代码再看一下
-        torch.distributed.init_process_group("nccl")
-        rank, world_size = torch.distributed.get_rank(), torch.distributed.get_world_size()
-        device_id = rank % torch.cuda.device_count()
-        print(f"current device:{device_id} total:{torch.cuda.device_count()}")
-        device = torch.device(device_id)
-        torch.cuda.set_device(device)
+        # torch.distributed.init_process_group("nccl")
+        # rank, world_size = torch.distributed.get_rank(), torch.distributed.get_world_size()
+        # device_id = rank % torch.cuda.device_count()
+        # print(f"current device:{device_id} total:{torch.cuda.device_count()}")
+        # device = torch.device(device_id)
+        # torch.cuda.set_device(device)
 
     set_seed(seed)
 
