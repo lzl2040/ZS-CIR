@@ -17,6 +17,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, AutoConfig, AutoMo
 from transformers import BitsAndBytesConfig
 import wandb
 wandb.init(mode="disabled")
+import deepspeed
 
 from peft import (
     prepare_model_for_kbit_training,
@@ -359,6 +360,7 @@ def train(
 
     global NIL_DATASET
     NIL_DATASET = True
+    deepspeed.init_distributed()
 
     group_by_length = False
     train_on_inputs = False
