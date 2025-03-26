@@ -347,7 +347,7 @@ def train(
         save_steps: int = 100,
         seed: int = 42,
         # Different from Sentemb ft_llm
-        deepspeed: str = None,
+        deepspeed_config: str = None,
         logging_steps: int = 10,
         grad_checkpoint: bool = False,
         fix_attention_mask: bool = False,
@@ -667,7 +667,7 @@ def train(
             group_by_length=group_by_length,
             run_name=run_name,
             report_to=None,
-            deepspeed=deepspeed,
+            deepspeed=deepspeed_config,
             gradient_checkpointing=grad_checkpoint,
         ),
         data_collator=data_collator,

@@ -44,7 +44,7 @@ NCCL_DEBUG=INFO deepspeed --num_gpus=$GPUS --num_nodes=$NUM_NODES ft_llm.py \
         --lora_dropout 0.05 \
         --output_dir $RUN  --is_sentemb \
         --mask_embedding_sentence_template $TEMPLATE --use_neg_sentence --save_steps 50 \
-        --deepspeed ds.config \
+        --deepspeed_config ds.config \
         --lora_target_modules q_proj,k_proj,v_proj,o_proj,gate_proj,down_proj,up_proj  --logging_steps 1 --grad_checkpoint \
          --load_kbit $BIT \
          ${args[@]}
