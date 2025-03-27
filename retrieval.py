@@ -515,6 +515,7 @@ def main(
         ocr_replace_text: bool = False,
         phi3: bool = False,
         use_e5v: bool = False,
+        prompt_type = "org"
 ):
     global DEBUG, MODEL_TYPE
     DEBUG = debug
@@ -578,35 +579,41 @@ def main(
                 fiq_data_name = fiq_data_type
                 if fiq_data_type == 'toptee':
                     fiq_data_name = 'shirt'
-                # Original prompt (Summarize word)
-                img_prompt = f"[INST] <image>\n Describe this {fiq_data_name} in one word based on its style: [/INST]"
-                text_img_prompt = f"[INST] <image> change the style of this {fiq_data_name} to <sent>\n Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
-
-                # Pretended CoT prompt (word)
-                # img_prompt = f"[INST] <image>\n After thinking step by step, describe this {fiq_data_name} in one word based on its style: [/INST]"
-                # text_img_prompt = f"[INST] <image>\n After thinking step by step, change the style of this {fiq_data_name} to <sent>\n" \
-                #                   f" Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
-
-                # Knowledge Enhancement Prompt
-                # img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
-                #              f"With this in mind, describe this {fiq_data_name} in one word based on its style: [/INST]"
-                # text_img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
-                #                   f"With this in mind, change the style of this {fiq_data_name} to \"<sent>\", and describe this modified {fiq_data_name} in one word based on its style: [/INST]"
+                
+                if prompt_type == "org":
+                    # Original prompt (Summarize word)
+                    img_prompt = f"[INST] <image>\n Describe this {fiq_data_name} in one word based on its style: [/INST]"
+                    text_img_prompt = f"[INST] <image> change the style of this {fiq_data_name} to <sent>\n Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
+                elif prompt_type == "cot":
+                    # Pretended CoT prompt (word)
+                    img_prompt = f"[INST] <image>\n After thinking step by step, describe this {fiq_data_name} in one word based on its style: [/INST]"
+                    text_img_prompt = f"[INST] <image>\n After thinking step by step, change the style of this {fiq_data_name} to <sent>\n" \
+                                      f" Describe this modified {fiq_data_name} in one word based on its style: [/INST]"
+                elif prompt_type == "ke":
+                    # Knowledge Enhancement Prompt
+                    img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
+                                 f"With this in mind, describe this {fiq_data_name} in one word based on its style: [/INST]"
+                    text_img_prompt = f"[INST] <image>\n The essence of this {fiq_data_name} is often captured by its main objects and actions, while additional details provide context. " \
+                                      f"With this in mind, change the style of this {fiq_data_name} to \"<sent>\", and describe this modified {fiq_data_name} in one word based on its style: [/INST]"
+                else:
+                    raise NameError("Prompt type must be chosen from org, cot, ke")
             else:
-                # Original prompt (Summarize word)
-                img_prompt = "[INST] <image>\n Describe this image in one word: [/INST]"
-                text_img_prompt = "[INST] <image>Modify this image with \"<sent>\", describe modified image in one word: [/INST]"
-
-                # Pretended CoT
-                # img_prompt = "[INST] <image>\n After thinking step by step, describe this image in one word: [/INST]"
-                # text_img_prompt = "[INST] <image>\n After thinking step by step, modify this image with \"<sent>\", describe the modified image in one word: [/INST]"
-
-                # Knowledge Enhancement Prompt
-                # img_prompt = "[INST] <image>\n The essence of image is often captured by its main objects and actions, while additional details provide context. " \
-                #              "With this in mind, describe this image in one word: [/INST]"
-                # text_img_prompt = "[INST] <image>\n The essence of this image is often captured by its main objects and actions, while additional details provide context. " \
-                #                   "With this in mind, modify this image with \"<sent>\", and describe the modified image in one word: [/INST]"
-
+                if prompt_type == "org":
+                    # Original prompt (Summarize word)
+                    img_prompt = "[INST] <image>\n Describe this image in one word: [/INST]"
+                    text_img_prompt = "[INST] <image>Modify this image with \"<sent>\", describe modified image in one word: [/INST]"
+                elif prompt_type == "cot":
+                    # Pretended CoT
+                    img_prompt = "[INST] <image>\n After thinking step by step, describe this image in one word: [/INST]"
+                    text_img_prompt = "[INST] <image>\n After thinking step by step, modify this image with \"<sent>\", describe the modified image in one word: [/INST]"
+                elif prompt_type == "ke":
+                    # Knowledge Enhancement Prompt
+                    img_prompt = "[INST] <image>\n The essence of image is often captured by its main objects and actions, while additional details provide context. " \
+                                 "With this in mind, describe this image in one word: [/INST]"
+                    text_img_prompt = "[INST] <image>\n The essence of this image is often captured by its main objects and actions, while additional details provide context. " \
+                                      "With this in mind, modify this image with \"<sent>\", and describe the modified image in one word: [/INST]"
+                else:
+                    raise NameError("Prompt type must be chosen from org, cot, ke")
             if llava_llama3:
                 img_prompt = img_prompt.replace('[INST] ', '').replace(' [/INST]', '')
                 text_img_prompt = text_img_prompt.replace('[INST] ', '').replace(' [/INST]', '')
@@ -632,7 +639,9 @@ def main(
         if accelerator.is_main_process:
             print(metrics)
             if lora_path is not None or name is not None:
-                checkpoint_name = lora_path.replace('/', '_') + '.txt' if lora_path is not None else name
+                temp_list = lora_path.split("/")
+                checkpoint_name = f"{temp_list[-2]}_{temp_list[-1]}_{prompt_type}.txt" if lora_path is not None else name
+                # checkpoint_name = lora_path.replace('/', '_') + '.txt' if lora_path is not None else name
             elif use_e5v:
                 checkpoint_name = 'e5v.txt'
             else:
