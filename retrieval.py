@@ -519,7 +519,7 @@ def main(
 ):
     global DEBUG, MODEL_TYPE
     DEBUG = debug
-
+    os.makedirs(file_path, exist_ok=True)
     if phi3:
         MODEL_TYPE = 'phi3'
     elif llava_llama3:
