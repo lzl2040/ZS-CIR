@@ -24,7 +24,7 @@ TEMPLATES=(
 
 # 对应的 RUN 名称
 # RUNS=("org" "cot" "ke")
-RUNS=("org" "ke")
+RUNS=("org" "ke-2")
 
 wandb online
 
