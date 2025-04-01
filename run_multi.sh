@@ -2,7 +2,7 @@
 
 args=()
 
-BASE_MODEL="models/llava-llama-3-8b"
+BASE_MODEL="/mnt/input_zuo/ZS-CIR/models/llava-llama-3-8b"
 BIT=4
 R=64
 ALPHA=16
@@ -31,7 +31,7 @@ wandb online
 # 遍历 TEMPLATES 和 RUNS
 for i in "${!TEMPLATES[@]}"; do
     TEMPLATE="${TEMPLATES[$i]}"
-    RUN="e5v-8b-4bit-${RUNS[$i]}"  # 使用预定义的 RUN 名称
+    RUN="/mnt/output_zuo/ZS-CIR/e5v-8b-4bit-${RUNS[$i]}"  # 使用预定义的 RUN 名称
 
     echo "Running experiment with TEMPLATE index: $i"
     echo "RUN: $RUN"
