@@ -1,7 +1,5 @@
-transformers==4.41.2
 deepspeed==0.15.4
 peft==0.11.1
-accelerate==0.27.2
 bitsandbytes==0.43.1
 scipy
 datasets==2.20.0
@@ -13,3 +11,6 @@ pandas
 fire
 wandb
 pydantic==2.10.6
+qwen_vl_utils
+transformers
+accelerate
