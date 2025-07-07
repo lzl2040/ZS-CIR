@@ -18,7 +18,7 @@ import datasets
 import prompts_objects
 
 if torch.cuda.is_available():
-    device_id = 6
+    device_id = 0
     torch.cuda.set_device(device_id)
     device = torch.device("cuda")
 else:
